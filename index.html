@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Aslbek Nasriddinov | Creative Frontend Dev</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f9fafb;
+            --card-bg: #ffffff;
+            --text: #111827;
+            --text-light: #4b5563;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --border: #e5e7eb;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+        }
+
+        body.dark {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f1f5f9;
+            --text-light: #cbd5e1;
+            --border: #334155;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            transition: background 0.3s, color 0.2s;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - mobil uchun optimallashtirilgan */
+        .header {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            background: rgba(var(--bg-rgb), 0.95);
+        }
+        
+        .header-inner {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            align-items: center;
+        }
+        
+        .nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 8px 0;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .nav a:hover {
+            color: var(--primary);
+        }
+        
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 60px;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.9rem;
+            min-height: 44px;
+        }
+
+        /* section */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 32px;
+            text-align: center;
+            background: linear-gradient(to right, var(--primary), #c084fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Hero - mobil uchun */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero-content {
+            flex: 1;
+            width: 100%;
+        }
+        
+        .hero-badge {
+            background: var(--primary);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 28px;
+        }
+        
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 0.95rem;
+            min-height: 48px;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: transparent;
+        }
+        
+        .hero-avatar svg {
+            max-width: 180px;
+            height: auto;
+            width: 100%;
+        }
+
+        /* Skills grid - mobil responsive */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 20px;
+        }
+        
+        .skill-card {
+            background: var(--card-bg);
+            padding: 20px 12px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.25s;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .skill-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 16px;
+        }
+        
+        .skill-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .skill-name {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Projects grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 28px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            transition: 0.2s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .project-title {
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+        }
+        
+        .project-desc {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Contact form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 28px 20px;
+            border-radius: 28px;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 28px 20px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        
+        .contact-info {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.85rem;
+            word-break: break-word;
+        }
+
+        /* Tablet uchun */
+        @media (min-width: 640px) {
+            .container {
+                padding: 0 30px;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .skills-grid {
+                gap: 24px;
+            }
+        }
+        
+        /* Desktop uchun */
+        @media (min-width: 1024px) {
+            .header-inner {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .hero {
+                flex-direction: row;
+                text-align: left;
+                gap: 48px;
+            }
+            .btn-group {
+                justify-content: flex-start;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .section {
+                padding: 80px 0;
+            }
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 48px;
+            }
+            .contact-form {
+                padding: 40px;
+            }
+        }
+        
+        /* Kichik mobil (320px) */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .section {
+                padding: 48px 0;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .skill-card {
+                padding: 16px 8px;
+            }
+            .skill-name {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="container header-inner">
+        <div class="logo">✨ Aslbek.dev</div>
+        <div class="nav">
+            <a href="#home">Bosh sahifa</a>
+            <a href="#skills">Ko‘nikmalar</a>
+            <a href="#projects">Loyihalar</a>
+            <a href="#contact">Aloqa</a>
+            <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section id="home" class="section">
+        <div class="container hero">
+            <div class="hero-content">
+                <div class="hero-badge">Frontend dev & Creative Designer</div>
+                <h1>Nasriddinov Aslbek</h1>
+                <p>Zamonaviy va interaktiv veb-saytlar yarataman. Figma dizaynlar → kod, animatsiya va mukammal foydalanuvchi tajribasi.</p>
+                <div class="btn-group">
+                    <a href="#contact" class="btn btn-primary">Loyiha taklif qilish</a>
+                    <a href="#projects" class="btn btn-outline">Loyihalarim</a>
+                </div>
+            </div>
+            <div class="hero-avatar">
+                <svg width="180" height="180" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="90" fill="url(#grad)" />
+                    <text x="100" y="115" font-size="32" text-anchor="middle" fill="white" font-weight="bold">AL</text>
+                    <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Ko‘nikmalar & Texnologiyalar</h2>
+            <div class="skills-grid">
+                <div class="skill-card"><div class="skill-icon"><svg viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="20" fill="#E44D26"/><path d="M40 60L25 52L28 35H38L36 45L40 48L44 45L46 29H54L52 52L40 60Z" fill="white"/></svg></div><div class="skill-name">HTML5</div></div>
+                <div class="skill-card"><div class="skill-icon"><svg viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="20" fill="#264DE4"/><path d="M40 60L25 52L28 35H38L36 45L40 48L44 45L46 29H54L52 52L40 60Z" fill="white"/></svg></div><div class="skill-name">CSS3</div></div>
+                <div class="skill-card"><div class="skill-icon"><svg viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="20" fill="#F7DF1E"/><path d="M40 55L30 45L36 38L40 42L44 38L50 45L40 55Z" fill="black"/></svg></div><div class="skill-name">JavaScript</div></div>
+                <div class="skill-card"><div class="skill-icon"><svg viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="20" fill="#F24E1E"/><path d="M45 35 L35 35 L35 28 L55 28 L55 48 L48 48 L48 38 L45 38Z" fill="white"/></svg></div><div class="skill-name">Figma</div></div>
+                <div class="skill-card"><div class="skill-icon"><svg viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="20" fill="#6C4DFF"/><path d="M25 40 L40 25 L55 40 L40 55 L25 40Z" fill="white"/></svg></div><div class="skill-name">Graphic Des.</div></div>
+                <div class="skill-card"><div class="skill-icon"><svg viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="20" fill="#3776AB"/><path d="M28 50 L40 25 L52 50 L48 55 L40 42 L32 55 L28 50Z" fill="white"/></svg></div><div class="skill-name">Python</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Eng so‘nggi loyihalar</h2>
+            <div class="projects-grid">
+                <div class="project-card"><h3 class="project-title">✨ Portfolio sayt</h3><p class="project-desc">Zamonaviy responsive personal portfolio, dark mode, interaktiv dizayn.</p><a href="#" class="project-link">Demo →</a></div>
+                <div class="project-card"><h3 class="project-title">☁️ Weather App</h3><p class="project-desc">OpenWeather API, real vaqt ob-havo, dinamik UI.</p><a href="#" class="project-link">Ko‘rish →</a></div>
+                <div class="project-card"><h3 class="project-title">🚀 Landing Page</h3><p class="project-desc">Startap uchun kreativ landing, scroll animatsiyalar.</p><a href="#" class="project-link">Loyiha →</a></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Bog‘lanish</h2>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group"><input type="text" placeholder="Ismingiz" required></div>
+                <div class="form-group"><input type="email" placeholder="Email manzil" required></div>
+                <div class="form-group"><textarea rows="4" placeholder="Xabar yozing..."></textarea></div>
+                <button type="submit" class="btn btn-primary" style="width:100%">Yuborish</button>
+                <div class="contact-info">
+                    📧 aslbeknasriddinov70@gmail.com<br>
+                    🐙 github.com/NAslbek
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
+<footer>
+    <p>© 2025 Nasriddinov Aslbek — Creative Frontend dev</p>
+</footer>
+
+<script>
+    const toggle = document.getElementById('themeToggle');
+    const body = document.body;
+    if(localStorage.getItem('theme') === 'dark') body.classList.add('dark');
+    toggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+        toggle.textContent = body.classList.contains('dark') ? '☀️ Light' : '🌙 Dark';
+    });
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert("Rahmat! Tez orada javob beraman ✨");
+    });
+    if(body.classList.contains('dark')) toggle.textContent = '☀️ Light';
+</script>
+</body>
+</html>
