@@ -361,7 +361,13 @@
             font-size: 0.85rem;
             word-break: break-word;
         }
-
+        /* Mobil versiyada avatar o'lchami */
+@media (max-width: 480px) {
+    .hero-avatar img {
+        width: 140px;
+        height: 140px;
+    }
+}
         /* Tablet uchun */
         @media (min-width: 640px) {
             .container {
@@ -468,12 +474,8 @@
                 </div>
             </div>
             <div class="hero-avatar">
-                <svg width="180" height="180" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="100" cy="100" r="90" fill="url(#grad)" />
-                    <text x="100" y="115" font-size="32" text-anchor="middle" fill="white" font-weight="bold">AL</text>
-                    <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs>
-                </svg>
-            </div>
+    <img src="portfolio_logo.png" alt="Aslbek Nasriddinov" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);">
+</div>
         </div>
     </section>
 
